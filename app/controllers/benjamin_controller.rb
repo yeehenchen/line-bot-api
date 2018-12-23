@@ -19,7 +19,6 @@ class BenjaminController < ApplicationController
       config.channel_secret = ENV['LINE_SECRET']
       config.channel_token = ENV['LINE_TOKEN']
     }
-    p "CLIENT OBJECT : #{@line}"
   end
 
   def reply_to_line(reply_text)
@@ -30,7 +29,8 @@ class BenjaminController < ApplicationController
       type: 'text',
       text: reply_text
     }
-    p "MESSAGE : #{message}"
+
     p line.reply_message(reply_token, message)
+    p "CLIENT : #{line}"
   end
 end
