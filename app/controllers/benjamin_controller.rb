@@ -1,26 +1,35 @@
+require 'line/bot'
+
 class BenjaminController < ApplicationController
-  require 'line/bot'
   # skip the CRSF default check
   protect_from_forgery with: :null_session
 
   def webhook
-    client = Line::Bot::Client.new { |config|
+    # reply text
+    reply_text = '好哦～好哦～'
+
+    # reply message
+    reply_to_line(message)
+
+    head :ok
+  end
+
+  def line
+    @line ||= Line::Bot::Client.new { |config|
       config.channel_secret = ENV["LINE_SECRET"]
       config.channel_token = ENV["LINE_TOKEN"]
     }
+  end
 
-    # 取得 reply token
+  def reply_to_line(reply_text)
+    # get reply token
     reply_token = params['events'][0]['replyToken']
 
-    # 設定回覆訊息
     message = {
       type: 'text',
-      text: '好哦～好哦～'
+      text: reply_text
     }
 
-    # 傳送訊息
-    response = client.reply_message(reply_token, message)
-
-    head :ok
+    line.reply_message(reply_token, message)
   end
 end
