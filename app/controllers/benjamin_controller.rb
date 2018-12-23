@@ -5,8 +5,8 @@ class BenjaminController < ApplicationController
 
   def webhook
     client = Line::Bot::Client.new { |config|
-      config.channel_secret = ENV[LINE_SECRET]
-      config.channel_token = ENV[LINE_TOKEN]
+      config.channel_secret = ENV["LINE_SECRET"]
+      config.channel_token = ENV["LINE_TOKEN"]
     }
 
     # 取得 reply token
