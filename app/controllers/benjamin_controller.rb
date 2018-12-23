@@ -6,12 +6,20 @@ class BenjaminController < ApplicationController
 
   def webhook
     # reply text
-    reply_text = '好哦～好哦～'
+    reply_text = keyword_reply(received_text)
 
     # reply message
     reply_to_line(reply_text)
 
     head :ok
+  end
+
+  def received_text
+    params['events'][0]['message']['text'] unless params['events'][0]['message'].nil?
+  end
+
+  def keyword_reply(received_text)
+    "#{received_text} 學你好爽喔"
   end
 
   def line
