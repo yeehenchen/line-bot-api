@@ -20,7 +20,7 @@ class BenjaminController < ApplicationController
 
   def keyword_reply(received_text)
     if received_text.nil?
-      '你好我是班傑明' if rand(100) > 50
+      '你好我是班傑明，快問我迪卡儂的事情！'
     else
       link = Link.where("word LIKE '%#{received_text}%'").first
       "你是說迪卡儂的#{link.word}嗎？ 快去吧！#{link.link}"
