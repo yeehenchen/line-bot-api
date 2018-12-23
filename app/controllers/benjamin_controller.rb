@@ -15,7 +15,6 @@ class BenjaminController < ApplicationController
   end
 
   def line
-    p ENV['LINE_TOKEN']
     @line ||= Line::Bot::Client.new { |config|
       config.channel_secret = ENV['LINE_SECRET']
       config.channel_token = ENV['LINE_TOKEN']
@@ -25,13 +24,14 @@ class BenjaminController < ApplicationController
   def reply_to_line(reply_text)
     # get reply token
     reply_token = params['events'][0]['replyToken']
-    p "reply_token #{reply_token}"
+
+    # setup replying message
     message = {
       type: 'text',
       text: reply_text
     }
 
-    p line.reply_message(reply_token, message)
-    p "CLIENT : #{line}"
+    # call the reply function
+    line.reply_message(reply_token, message)
   end
 end
