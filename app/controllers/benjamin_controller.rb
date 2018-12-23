@@ -24,12 +24,12 @@ class BenjaminController < ApplicationController
   def reply_to_line(reply_text)
     # get reply token
     reply_token = params['events'][0]['replyToken']
-
+    p "reply_token #{reply_token}"
     message = {
       type: 'text',
       text: reply_text
     }
-    p message
+
     line.reply_message(reply_token, message)
   end
 end
