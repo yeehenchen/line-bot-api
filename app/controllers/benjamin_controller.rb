@@ -9,15 +9,15 @@ class BenjaminController < ApplicationController
     reply_text = '好哦～好哦～'
 
     # reply message
-    reply_to_line(message)
+    reply_to_line(reply_text)
 
     head :ok
   end
 
   def line
     @line ||= Line::Bot::Client.new { |config|
-      config.channel_secret = ENV["LINE_SECRET"]
-      config.channel_token = ENV["LINE_TOKEN"]
+      config.channel_secret = ENV['LINE_SECRET']
+      config.channel_token = ENV['LINE_TOKEN']
     }
   end
 
