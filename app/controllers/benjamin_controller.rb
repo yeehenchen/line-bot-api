@@ -29,7 +29,7 @@ class BenjaminController < ApplicationController
       type: 'text',
       text: reply_text
     }
-
-    line.reply_message(reply_token, message)
+    p message
+    p line.reply_message(reply_token, message)
   end
 end
