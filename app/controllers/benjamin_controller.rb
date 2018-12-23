@@ -19,7 +19,8 @@ class BenjaminController < ApplicationController
   end
 
   def keyword_reply(received_text)
-    "#{received_text} 學你好爽喔"
+    link = Link.where("word LIKE '%#{received_text}%'").first
+    "你是說迪卡儂的#{link.word}嗎？ 快去吧！#{link.link}"
   end
 
   def line
