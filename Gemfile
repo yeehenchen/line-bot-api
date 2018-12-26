@@ -3,7 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.4.4'
 # add simple form
-gem 'boostrap-sass'
+gem 'bootstrap-sass'
 gem 'simple_form'
 # env variable protection
 gem 'dotenv-rails', groups: [:development, :test]

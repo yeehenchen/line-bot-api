@@ -9,11 +9,17 @@ class LinksController < ApplicationController
   end
 
   def create
+    @link = Link.new(val_params)
 
+    if @link.save
+      redirect_to links_path
+    else
+      render :new
+    end
   end
 
   def new
-
+    @link = Link.new
   end
 
   def edit
@@ -25,7 +31,8 @@ class LinksController < ApplicationController
   end
 
   def destroy
-
+    @link.destroy
+    redirect_to links_path
   end
 
   private
