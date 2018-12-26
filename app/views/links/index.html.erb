@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="col-xs-12 text-center">
+    <div class="row">
+      <h1>Benjamin Talks -- Links</h1>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Keyword</th>
+            <th scope="col">Link</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <% @links.each do |l| %>
+          <tbody>
+            <tr>
+              <td class="text-left"><%= l.word %></td>
+              <td class="text-left"><%= l.link %></td>
+              <td class="text-left"><%= link_to '🗑️', link_path(l), method: :delete, data: { confirm: "Are you sure?" } %></td>
+            </tr>
+          </tbody>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>
