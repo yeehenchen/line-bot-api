@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="col-xs-12 col-sm-4 col-sm-offset-4">
+    <div class="row">
+      <%= simple_form_for(@link) do |l| %>
+        <h2>Add a new Link</h2>
+
+        <div class="form-group">
+          <%= f.input :word, class: "form-control" %>
+          <%= f.input :link, class: "form-control" %>
+        </div>
+        <%= f.button :submit, class: "btn btn-primary" %>
+        <%= link_to "Clear input", "#", class: "btn btn-danger" %>
+      <% end %>
+    </div>
+  </div>
+
+</div>
