@@ -5,7 +5,6 @@ class BenjaminController < ApplicationController
   protect_from_forgery with: :null_session
 
   def webhook
-    p "params #{params}"
     # reply text
     reply_text = keyword_reply(received_text)
 
@@ -32,6 +31,7 @@ class BenjaminController < ApplicationController
 
   def line
     @line ||= Line::Bot::Client.new { |config|
+      p "config #{config}"
       config.channel_secret = ENV['LINE_SECRET']
       config.channel_token = ENV['LINE_TOKEN']
     }
