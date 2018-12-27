@@ -3,4 +3,5 @@ Rails.application.routes.draw do
   post 'benjamin/webhook', to: 'benjamin#webhook'
 
   resources :links
+  resources :channels, only: [:new, :create]
 end

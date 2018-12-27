@@ -5,6 +5,7 @@ class BenjaminController < ApplicationController
   protect_from_forgery with: :null_session
 
   def webhook
+    p "params #{params}"
     # reply text
     reply_text = keyword_reply(received_text)
 
