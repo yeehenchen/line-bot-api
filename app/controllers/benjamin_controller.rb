@@ -22,6 +22,8 @@ class BenjaminController < ApplicationController
     if received_text.nil?
       "別傳貼圖了，快問我迪卡儂的事情！想知道#{Link.find(rand(Link.count)).word}嗎？"
     else
+      return "Yeehen是神" unless received_text['yeehen'].nil?
+
       link = Link.where("word LIKE '%#{received_text}%'").first
       "你是說迪卡儂的#{link.word}嗎？ 快去吧！#{link.link}"
     end
