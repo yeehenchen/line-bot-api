@@ -17,7 +17,7 @@ class BenjaminController < ApplicationController
       text_to_line(reply_text)
     when String
       # do sth
-      redirect_to bet_bet_path(@bet, params: '1000')
+      redirect_to bet_bet_path, alert: '1000'
     end
 
     head :ok
