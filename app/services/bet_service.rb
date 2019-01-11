@@ -1,6 +1,6 @@
 class BetService
   def initialize(user, balance)
-    @balance = balance
+    @balance = balance[0]
     @user = user
   end
 

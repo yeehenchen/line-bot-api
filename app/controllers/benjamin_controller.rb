@@ -19,19 +19,20 @@ class BenjaminController < ApplicationController
       # do sth
       case command_identify(received_text)
       when '!bet'
-        s = BetService.new(@user, command_params(received_text)[0])
+        s = BetService.new(@user, command_params(received_text))
         s.bet
       when '!start'
-        s = SthService.new()
+        return 'You cannot play alone, LOSER!' unless params['events'][0]['source']['roomId']
+        s = StartService.new(@user, command_params(received_text), params['events'][0]['source']['roomId'])
         s.sth
       when '!end'
-        s = SthService.new()
+        s = EndService.new(@user, command_params(received_text))
         s.sth
       when '!balance'
-        s = SthService.new()
+        s = BalanceService.new(@user, command_params(received_text))
         s.sth
       when '!rank'
-        s = SthService.new()
+        s = RankService.new(@user, command_params(received_text))
         s.sth
       end
     end
