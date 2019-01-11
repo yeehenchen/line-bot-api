@@ -6,7 +6,7 @@ class BenjaminController < ApplicationController
   protect_from_forgery with: :null_session
 
   def webhook
-    user = Player.find_or_created_by(user_profile(params['events'][0]['source']['userId']))
+    user = Player.find_or_create_by(user_profile(params['events'][0]['source']['userId']))
 
     case command_identify(received_text)
     when nil
