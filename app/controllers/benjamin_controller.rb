@@ -20,21 +20,21 @@ class BenjaminController < ApplicationController
       room = params['events'][0]['source']['roomId']
       case command_identify(received_text)
       when '!bet'
-        s = BetService.new(@user, command_params(received_text))
+        s = BetService.new(@user, room, command_params(received_text))
         s.bet
       when '!start'
         return text_to_line('You cannot play alone, LOSER! Go find some friends la.') if room.nil?
 
-        s = StartService.new(@user, command_params(received_text), room)
+        s = StartService.new(@user, room)
         s.sth
       when '!end'
-        s = EndService.new(@user, command_params(received_text), room)
+        s = EndService.new(@user, room, command_params(received_text))
         s.sth
       when '!balance'
         s = BalanceService.new(@user, command_params(received_text))
         s.sth
       when '!rank'
-        s = RankService.new(@user, command_params(received_text), room)
+        s = RankService.new(@user, room, command_params(received_text))
         s.sth
       end
     end
