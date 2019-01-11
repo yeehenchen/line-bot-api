@@ -7,7 +7,7 @@ class BenjaminController < ApplicationController
   protect_from_forgery with: :null_session
 
   def webhook
-    user = Player.find_or_create_by(user_profile(params['events'][0]['source']['userId']))
+    @user = Player.find_or_create_by(user_profile(params['events'][0]['source']['userId']))
     case command_identify(received_text)
     when nil
       # reply text
@@ -17,7 +17,7 @@ class BenjaminController < ApplicationController
       text_to_line(reply_text)
     when String
       # do sth
-      redirect_to controller: command_identify(received_text)[1..-1], action: command_identify(received_text)[1..-1], param: command_params(received_text)
+      redirect_to controller: command_identify(received_text)[1..-1], action: command_identify(received_text)[1..-1], param: command_params(received_text), user: @user
     end
 
     head :ok
