@@ -1,4 +1,5 @@
 require 'line/bot'
+require 'open-uri'
 
 class BenjaminController < ApplicationController
   # skip the CRSF default check
@@ -14,9 +15,17 @@ class BenjaminController < ApplicationController
       text_to_line(reply_text)
     when String
       # check action
+      action = command_action(received_text)
+      # do sth
+      p user_profile(params['events'][0]['source']['userid'])
     end
 
     head :ok
+  end
+
+  def user_profile(userid)
+    url = "https://api.line.me/v2/bot/profile/#{userid}"
+    user_profile = open(url, 'Authorization' => "Bearer #{ENV['LINE_TOKEN']}").read
   end
 
   def received_text
@@ -25,6 +34,10 @@ class BenjaminController < ApplicationController
 
   def command_identify(received_text)
     received_text[0] == '!' ? received_text.split(' ')[0] : nil
+  end
+
+  def command_action(received_text)
+    received_text.split(' ')[1]
   end
 
   def keyword_reply(received_text)
