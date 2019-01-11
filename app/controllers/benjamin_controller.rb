@@ -19,6 +19,8 @@ class BenjaminController < ApplicationController
   end
 
   def keyword_reply(received_text)
+    return received_text if received_text.length < 4
+
     return 'Yeehen是神' unless received_text['Yeehen'].nil?
 
     return 'Owen桌球比Benson強' unless received_text['Owen'].nil?
