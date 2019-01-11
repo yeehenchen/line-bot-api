@@ -26,7 +26,9 @@ class BenjaminController < ApplicationController
 
   def user_profile(userid)
     url = "https://api.line.me/v2/bot/profile/#{userid}"
+    p "URL : #{url}"
     user_profile = open(url, 'Authorization' => "Bearer #{ENV['LINE_TOKEN']}").read
+    p user_profile
   end
 
   def received_text
