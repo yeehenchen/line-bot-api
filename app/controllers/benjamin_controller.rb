@@ -18,6 +18,7 @@ class BenjaminController < ApplicationController
     when String
       # do sth
       redirect_to controller: received_text[1..-1], action: received_text[1..-1], params: command_params(received_text)
+      return received_text[1..-1]
     end
 
     head :ok
