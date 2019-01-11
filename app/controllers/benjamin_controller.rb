@@ -19,7 +19,7 @@ class BenjaminController < ApplicationController
       # do sth
       redirect_to controller: command_identify(received_text)[1..-1], action: command_identify(received_text)[1..-1], param: command_params(received_text), user: @user && return
     end
-
+    p "test"
     head :ok
   end
 
