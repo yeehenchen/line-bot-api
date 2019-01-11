@@ -10,10 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_11_022716) do
+ActiveRecord::Schema.define(version: 2019_01_11_074016) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bets", force: :cascade do |t|
+    t.integer "amount"
+    t.integer "num_guess"
+    t.bigint "player_id"
+    t.bigint "game_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_id"], name: "index_bets_on_game_id"
+    t.index ["player_id"], name: "index_bets_on_player_id"
+  end
+
+  create_table "games", force: :cascade do |t|
+    t.integer "winNum"
+    t.string "roomId"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "status"
+    t.string "winner"
+  end
 
   create_table "links", force: :cascade do |t|
     t.string "word"
@@ -31,4 +51,6 @@ ActiveRecord::Schema.define(version: 2019_01_11_022716) do
     t.string "pictureUrl"
   end
 
+  add_foreign_key "bets", "games"
+  add_foreign_key "bets", "players"
 end
