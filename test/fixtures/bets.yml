@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  amount: 1
+  num_guess: 1
+  player: one
+  game: one
+
+two:
+  amount: 1
+  num_guess: 1
+  player: two
+  game: two

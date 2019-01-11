@@ -23,7 +23,7 @@ class BenjaminController < ApplicationController
         s = BetService.new(@user, command_params(received_text))
         s.bet
       when '!start'
-        return text_to_line('You cannot play alone, LOSER!') if room.nil?
+        return text_to_line('You cannot play alone, LOSER! Go find some friends la.') if room.nil?
 
         s = StartService.new(@user, command_params(received_text), room)
         s.sth
