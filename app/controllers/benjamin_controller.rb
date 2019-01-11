@@ -17,22 +17,24 @@ class BenjaminController < ApplicationController
       text_to_line(reply_text)
     when String
       # do sth
+      room = params['events'][0]['source']['roomId']
       case command_identify(received_text)
       when '!bet'
         s = BetService.new(@user, command_params(received_text))
         s.bet
       when '!start'
-        return 'You cannot play alone, LOSER!' unless params['events'][0]['source']['roomId']
-        s = StartService.new(@user, command_params(received_text), params['events'][0]['source']['roomId'])
+        return 'You cannot play alone, LOSER!' if room.nil?
+
+        s = StartService.new(@user, command_params(received_text), room)
         s.sth
       when '!end'
-        s = EndService.new(@user, command_params(received_text))
+        s = EndService.new(@user, command_params(received_text), room)
         s.sth
       when '!balance'
         s = BalanceService.new(@user, command_params(received_text))
         s.sth
       when '!rank'
-        s = RankService.new(@user, command_params(received_text))
+        s = RankService.new(@user, command_params(received_text), room)
         s.sth
       end
     end
