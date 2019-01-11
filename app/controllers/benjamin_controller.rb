@@ -24,7 +24,7 @@ class BenjaminController < ApplicationController
   end
 
   def command_identify(received_text)
-    received_tex[0] == '!' ? received_text.split(' ')[0] : nil
+    received_text[0] == '!' ? received_text.split(' ')[0] : nil
   end
 
   def keyword_reply(received_text)
