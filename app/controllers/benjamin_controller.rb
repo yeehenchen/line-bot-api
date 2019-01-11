@@ -17,10 +17,22 @@ class BenjaminController < ApplicationController
       text_to_line(reply_text)
     when String
       # do sth
-      case command_identify(received_text)[1..-1]
-      when 'bet'
+      case command_identify(received_text)
+      when '!bet'
         s = BetService.new(@user, command_params(received_text))
         s.bet
+      when '!start'
+        s = SthService.new()
+        s.sth
+      when '!end'
+        s = SthService.new()
+        s.sth
+      when '!balance'
+        s = SthService.new()
+        s.sth
+      when '!rank'
+        s = SthService.new()
+        s.sth
       end
     end
     head :ok
@@ -41,7 +53,7 @@ class BenjaminController < ApplicationController
   end
 
   def command_params(received_text)
-    received_text.split(' ')[1]
+    received_text.split(' ').drop(1)
   end
 
   def keyword_reply(received_text)
