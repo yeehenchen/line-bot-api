@@ -1,6 +1,7 @@
 class BetController < ApplicationController
   def bet
-    p @user
+    @user.balance -= params[:param]
+    @user.save!
 
     head :ok
   end
