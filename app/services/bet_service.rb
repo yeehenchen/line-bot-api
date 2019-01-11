@@ -5,7 +5,7 @@ class BetService
   end
 
   def bet
-    @user.balance -= @balance
+    @user.balance -= @balance.to_i
     @user.save!
   end
 end
