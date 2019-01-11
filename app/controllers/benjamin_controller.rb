@@ -5,11 +5,16 @@ class BenjaminController < ApplicationController
   protect_from_forgery with: :null_session
 
   def webhook
-    # reply text
-    reply_text = keyword_reply(received_text)
+    case command_identify(received_text)
+    when nil
+      # reply text
+      reply_text = keyword_reply(received_text)
 
-    # reply message
-    text_to_line(reply_text)
+      # reply message
+      text_to_line(reply_text)
+    when String
+      # check action
+    end
 
     head :ok
   end
@@ -18,15 +23,21 @@ class BenjaminController < ApplicationController
     params['events'][0]['message']['text'] unless params['events'][0]['message'].nil?
   end
 
-  def keyword_reply(received_text)
-    return received_text if received_text.length < 4
+  def command_identify(received_text)
+    received_tex[0] == '!' ? received_text.split(' ')[0] : nil
+  end
 
+  def keyword_reply(received_text)
     return 'Yeehen是神' unless received_text['Yeehen'].nil?
 
     return 'Owen桌球比Benson強' unless received_text['Owen'].nil?
 
-    link = Link.where("word LIKE '%#{received_text}%'").first
-    "你是說迪卡儂的#{link.word}嗎？ 快去吧！#{link.link}"
+    if Link.where("word LIKE '%#{received_text}%'").first
+      reply = Link.where("word LIKE '%#{received_text}%'").first
+      "你是說迪卡儂的#{reply.word}嗎？ 快去吧！#{reply.link}"
+    elsif received_text.length < 4
+      received_text
+    end
   end
 
   def line
