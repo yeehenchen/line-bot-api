@@ -6,8 +6,8 @@ class BenjaminController < ApplicationController
   protect_from_forgery with: :null_session
 
   def webhook
-    # user = Player.find_or_create_by(user_profile(params['events'][0]['source']['userId']))
-    user = Player.find_or_create_by({"userId":"Uad5ce4aff89092de5252fd2857fc23c2","displayName":"陳以衡","pictureUrl":"https://profile.line-scdn.net/0m04bd07647251ff40047d316b27993b1831ad8d5458f7"})
+    user = Player.find_or_create_by(user_profile(params['events'][0]['source']['userId']))
+    # user = Player.find_or_create_by({"userId":"Uad5ce4aff89092de5252fd2857fc23c2","displayName":"陳以衡","pictureUrl":"https://profile.line-scdn.net/0m04bd07647251ff40047d316b27993b1831ad8d5458f7"})
     case command_identify(received_text)
     when nil
       # reply text
@@ -26,9 +26,9 @@ class BenjaminController < ApplicationController
 
   def user_profile(userid)
     url = "https://api.line.me/v2/bot/profile/#{userid}"
-    p "URL : #{url}"
     user_profile = open(url, 'Authorization' => "Bearer #{ENV['LINE_TOKEN']}").read
-    p user_profile
+    p user_profile == {"userId":"Uad5ce4aff89092de5252fd2857fc23c2","displayName":"陳以衡","pictureUrl":"https://profile.line-scdn.net/0m04bd07647251ff40047d316b27993b1831ad8d5458f7"}
+    return user_profile
   end
 
   def received_text
