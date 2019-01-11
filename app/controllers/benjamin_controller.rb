@@ -17,7 +17,7 @@ class BenjaminController < ApplicationController
       # check action
       action = command_action(received_text)
       # do sth
-      p user_profile(params['events'][0]['source']['userid'])
+      p user_profile(params['events'][0]['source']['userId'])
     end
 
     head :ok
