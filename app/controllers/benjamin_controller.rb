@@ -9,7 +9,7 @@ class BenjaminController < ApplicationController
     reply_text = keyword_reply(received_text)
 
     # reply message
-    reply_to_line(reply_text)
+    text_to_line(reply_text)
 
     head :ok
   end
@@ -19,16 +19,12 @@ class BenjaminController < ApplicationController
   end
 
   def keyword_reply(received_text)
-    if received_text.nil?
-      "別傳貼圖了，快問我迪卡儂的事情！想知道#{Link.find(rand(Link.count)).word}嗎？"
-    else
-      return 'Yeehen是神' unless received_text['Yeehen'].nil?
+    return 'Yeehen是神' unless received_text['Yeehen'].nil?
 
-      return 'Owen桌球比Benson強' unless received_text['Owen'].nil?
+    return 'Owen桌球比Benson強' unless received_text['Owen'].nil?
 
-      link = Link.where("word LIKE '%#{received_text}%'").first
-      "你是說迪卡儂的#{link.word}嗎？ 快去吧！#{link.link}"
-    end
+    link = Link.where("word LIKE '%#{received_text}%'").first
+    "你是說迪卡儂的#{link.word}嗎？ 快去吧！#{link.link}"
   end
 
   def line
@@ -39,7 +35,7 @@ class BenjaminController < ApplicationController
     }
   end
 
-  def reply_to_line(reply_text)
+  def text_to_line(reply_text)
     # get reply token
     reply_token = params['events'][0]['replyToken']
 
