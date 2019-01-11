@@ -17,10 +17,12 @@ class BenjaminController < ApplicationController
       text_to_line(reply_text)
     when String
       # do sth
-      redirect_to controller: command_identify(received_text)[1..-1], action: command_identify(received_text)[1..-1], param: command_params(received_text), user: @user
-      return
+      case command_identify(received_text)[1..-1]
+      when 'bet'
+        s = BetService.new(@user, command_params(received_text))
+        s.bet
+      end
     end
-    p "test"
     head :ok
   end
 
