@@ -18,7 +18,9 @@ class BenjaminController < ApplicationController
       text_to_line(reply_text)
     when String
       # do sth
-      redirect_to controller: received_text[1..-1], action: received_text[1..-1], params: command_params(received_text)
+      # redirect_to controller: received_text[1..-1], action: received_text[1..-1], params: command_params(received_text)
+      redirect_to controller: 'bet', action: 'bet'
+
       return received_text[1..-1]
     end
 
