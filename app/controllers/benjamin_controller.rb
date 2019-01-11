@@ -16,10 +16,8 @@ class BenjaminController < ApplicationController
       # reply message
       text_to_line(reply_text)
     when String
-      # check action
-      action = command_action(received_text)
       # do sth
-      p user_profile(params['events'][0]['source']['userId'])
+      redirect_to controller: received_text[1..-1], action: received_text[1..-1], params: command_params(received_text)
     end
 
     head :ok
@@ -38,7 +36,7 @@ class BenjaminController < ApplicationController
     received_text[0] == '!' ? received_text.split(' ')[0] : nil
   end
 
-  def command_action(received_text)
+  def command_params(received_text)
     received_text.split(' ')[1]
   end
 
