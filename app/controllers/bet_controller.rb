@@ -4,5 +4,7 @@ class BetController < ApplicationController
     p "2 nd #{params[:param]}"
 
     head :ok
+
+    return params
   end
 end
