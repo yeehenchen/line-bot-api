@@ -1,8 +1,8 @@
 class BetController < ApplicationController
   def bet
-    @user = Player.find(params[:user])
-    @user.balance -= params[:param].to_i
-    @user.save!
+    @player = Player.find(params[:user])
+    @player.balance -= params[:param].to_i
+    @player.save!
 
     head :ok
   end
