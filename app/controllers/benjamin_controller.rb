@@ -34,8 +34,8 @@ class BenjaminController < ApplicationController
         s = EndService.new(@user, room, command_params(received_text))
         s.sth
       when '!balance'
-        s = BalanceService.new(@user, command_params(received_text))
-        s.sth
+        s = BalanceService.new(@user)
+        text_to_line(s.balance)
       when '!rank'
         s = RankService.new(@user, room, command_params(received_text))
         s.sth
