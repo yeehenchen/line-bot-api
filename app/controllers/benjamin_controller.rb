@@ -8,6 +8,7 @@ class BenjaminController < ApplicationController
 
   def webhook
     @user = Player.find_or_create_by(user_profile(params['events'][0]['source']['userId']))
+    p @user
     case command_identify(received_text)
     when nil
       # reply text
