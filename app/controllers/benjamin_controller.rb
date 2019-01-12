@@ -44,8 +44,9 @@ class BenjaminController < ApplicationController
   def user_profile(userid)
     url = "https://api.line.me/v2/bot/profile/#{userid}"
     profile = open(url, 'Authorization' => "Bearer #{ENV['LINE_TOKEN']}").read
+    p profile
     profile.delete('statusMessage') if profile['statusMessage']
-    JSON.parse(user_profile)
+    JSON.parse(profile)
   end
 
   def received_text
