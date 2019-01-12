@@ -47,6 +47,7 @@ class BenjaminController < ApplicationController
     profile = open(url, 'Authorization' => "Bearer #{ENV['LINE_TOKEN']}").read
     profile = JSON.parse(profile)
     profile.delete(:statusMessage) if profile[:statusMessage]
+    profile
   end
 
   def received_text
