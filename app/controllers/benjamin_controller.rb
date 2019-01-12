@@ -7,7 +7,8 @@ class BenjaminController < ApplicationController
   protect_from_forgery with: :null_session
 
   def webhook
-    @user = Player.find_or_create_by(user_profile(params['events'][0]['source']['userId']))
+    userid = params['events'][0]['source']['userId']
+    @user = user_profile(userid) ? Player.find_or_create_by(user_profile(userid)) : nil
     case command_identify(received_text)
     when nil
       # reply text
@@ -17,6 +18,8 @@ class BenjaminController < ApplicationController
       text_to_line(reply_text)
     when String
       # do sth
+      return text_to_line('加好友才能使用功能哦！快加ㄅ') unless @user
+
       room = params['events'][0]['source']['roomId']
       case command_identify(received_text)
       when '!bet'
@@ -45,6 +48,8 @@ class BenjaminController < ApplicationController
     url = "https://api.line.me/v2/bot/profile/#{userid}"
     profile = open(url, 'Authorization' => "Bearer #{ENV['LINE_TOKEN']}").read
     profile = JSON.parse(profile)
+    return nil if profile[:message]
+
     profile.delete(:statusMessage) if profile[:statusMessage]
     profile
   end
