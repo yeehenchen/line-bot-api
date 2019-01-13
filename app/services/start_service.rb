@@ -5,7 +5,7 @@ class StartService
   end
 
   def start
-    return 'Already started a game, !end it first to start another one' if Game.where(roomId: @room).each { |r| r.status = false }
+    return 'Already started a game, !end it first to start another one' if Game.where(roomId: @room).select { |r| r.status == false }
 
     Game.create(roomId: @room, winNum: rand(100))
     'Game started!!! See who is closer to the answer.'
