@@ -8,8 +8,8 @@ class BetService
 
   def bet
     # check if game exists
-    game = Game.where(roomId: @room).select { |g| g.status == false }
-    return 'You haven\'t created a game, !start a game first!' if game.nil?
+    game = Game.where(roomId: @room).select { |g| g.status == false }.first
+    return 'You haven\'t created a game, !start a game first!' if game.blank?
 
     # create a bet
     bet = Bet.new(amount: @amount, num_guess: @num_guess, game_id: game.id, player_id: @user.id)
