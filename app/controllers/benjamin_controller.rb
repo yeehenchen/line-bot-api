@@ -19,24 +19,24 @@ class BenjaminController < ApplicationController
       @user = user_profile(userid) ? Player.find_or_create_by(user_profile(userid)) : nil
       return text_to_line('加好友才能使用功能哦！快加ㄅ') unless @user
 
-      room = params['events'][0]['source']['roomId']
-      return text_to_line('You cannot play alone, LOSER! Go find some friends la.') if room.nil?
+      des = params['events'][0]['source']['roomId'] || params['events'][0]['source']['groupId']
+      return text_to_line('You cannot play alone, LOSER! Go find some friends la.') if des.nil?
 
       case command_identify(received_text)
       when '!bet'
-        s = BetService.new(@user, room, command_params(received_text))
+        s = BetService.new(@user, des, command_params(received_text))
         text_to_line(s.bet)
       when '!start'
-        s = StartService.new(@user, room)
+        s = StartService.new(@user, des)
         text_to_line(s.start)
       when '!end'
-        s = EndService.new(@user, room)
+        s = EndService.new(@user, des)
         text_to_line(s.end)
       when '!balance'
         s = BalanceService.new(@user)
         text_to_line(s.balance)
       when '!rank'
-        s = RankService.new(@user, room, command_params(received_text))
+        s = RankService.new(@user, des)
         s.sth
       when '!help'
         text_to_line('Type !start to start a game, !end to end a game & get the winner, !bet to place a bet (betting format !bet amount number e.q. !bet 1000 35), !balance to know how much money in your account!')
