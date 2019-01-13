@@ -9,7 +9,7 @@ class BetService
   def bet
     # check if game exists
     game = Game.where(roomId: @room).select { |g| g.status == false }.first
-    return 'You haven\'t created a game, !start a game first!' if game.blank?
+    return '還沒有開始遊戲ㄛ，用!start開始吧' if game.blank?
 
     # create a bet
     bet = Bet.new(amount: @amount, num_guess: @num_guess, game_id: game.id, player_id: @user.id)
@@ -20,12 +20,12 @@ class BetService
         @user.save
         game.winNum = (game.winNum * (game.bets.count - 1) + @num_guess) / game.bets.count
         game.save
-        "Successfully placed bet for #{@user.displayName}, good luck!"
+        "#{@user.displayName}下注成功！"
       else
         bet.errors.full_messages.sum
       end
     else
-      "#{@user.displayName}'s balance is not enough"
+      "#{@user.displayName}的餘額不足，哭哭喔"
     end
   end
 end

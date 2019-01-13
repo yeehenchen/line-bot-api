@@ -5,7 +5,7 @@ class EndService
   end
 
   def end
-    return 'You haven\'t created a game, !start a game first!' if Game.where(roomId: @room).select { |g| g.status == false }.blank?
+    return '還沒有開始遊戲ㄛ，用!start開始吧' if Game.where(roomId: @room).select { |g| g.status == false }.blank?
 
     g = Game.where(roomId: @room).select { |r| r.status == false }.first
     return no_bet(g) if g.bets.blank?
@@ -16,13 +16,13 @@ class EndService
     g.winner = winbet.player
     g.status = true
     g.save!
-    "Winner is #{winbet.player.displayName}, answer : #{g.winNum}, #{winbet.player.displayName} earns #{winbet.amount * g.bets.count}"
+    "獲勝的是...#{winbet.player.displayName}! 答案: #{g.winNum}, #{winbet.player.displayName} 賺了 #{winbet.amount * g.bets.count}！"
   end
 
   def no_bet(g)
     g.winner = nil
     g.status = true
     g.save!
-    'No one wants to play ?? Crycry. Game ends'
+    '沒人要玩ㄇ 哭哭ＱＱ 遊戲結束'
   end
 end

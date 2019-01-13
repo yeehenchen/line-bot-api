@@ -21,7 +21,7 @@ class BenjaminController < ApplicationController
       return text_to_line('加好友才能使用功能哦！快加ㄅ') unless @user
 
       des = params['events'][0]['source']['roomId'] || params['events'][0]['source']['groupId']
-      return text_to_line('You cannot play alone, LOSER! Go find some friends la.') if des.nil?
+      return text_to_line('不能自己玩啦！魯蛇逆') if des.nil?
 
       case command_identify(received_text)
       when '!bet'
@@ -45,11 +45,11 @@ class BenjaminController < ApplicationController
           ')
       when '!help'
         text_to_line('
-          Type !start to start a game \n
-          !end to end a game & get the winner \n
-          !bet to place a bet (betting format !bet amount number e.q. !bet 1000 35) \n
-          !balance to know how much money in your account \n
-          !rule to know the game rule
+          輸入!start來開始遊戲
+          !end 結束遊戲並宣布贏家
+          !bet 來下注（下注格式為 !bet 數量 號碼 e.q. !bet 1000 35）
+          !balance 來查詢帳戶餘額
+          !rule 遊戲規則
           ')
       end
     end
@@ -64,7 +64,7 @@ class BenjaminController < ApplicationController
       return nil
     end
     profile = JSON.parse(profile)
-    profile.delete(:statusMessage) if profile[:statusMessage]
+    profile.delete("statusMessage") if profile["statusMessage"]
     profile
   end
 
