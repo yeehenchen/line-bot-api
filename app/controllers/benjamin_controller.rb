@@ -16,6 +16,7 @@ class BenjaminController < ApplicationController
       text_to_line(reply_text)
     when String
       userid = params['events'][0]['source']['userId']
+      p user_profile(userid)
       @user = user_profile(userid) ? Player.find_or_create_by(user_profile(userid)) : nil
       return text_to_line('加好友才能使用功能哦！快加ㄅ') unless @user
 
@@ -38,8 +39,18 @@ class BenjaminController < ApplicationController
       when '!rank'
         s = RankService.new(@user, des)
         s.sth
+      when '!rule'
+        text_to_line('
+          這是一個充滿心機的遊戲！每位玩家每次可以花錢賭一個數字，同一個數字無法下注兩次，最終答案是所有數字的平均值，最接近這位數字的玩家會獲得該注賭金Ｘ總下注次數的獎金！若結果相同則以先下注的玩家為贏家！
+          ')
       when '!help'
-        text_to_line('Type !start to start a game, !end to end a game & get the winner, !bet to place a bet (betting format !bet amount number e.q. !bet 1000 35), !balance to know how much money in your account!')
+        text_to_line('
+          Type !start to start a game \n
+          !end to end a game & get the winner \n
+          !bet to place a bet (betting format !bet amount number e.q. !bet 1000 35) \n
+          !balance to know how much money in your account \n
+          !rule to know the game rule
+          ')
       end
     end
     head :ok
