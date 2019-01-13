@@ -8,7 +8,7 @@ class EndService
     return 'You haven\'t created a game, !start a game first!' if Game.where(roomId: @room).select { |g| g.status == false }.blank?
 
     g = Game.where(roomId: @room).select { |r| r.status == false }.first
-    return no_bet if g.bets.blank?
+    return no_bet(g) if g.bets.blank?
 
     winbet = g.bets.min_by { |b| (g.winNum - b.num_guess).abs }
     winbet.player.balance += g.bets.sum(:amount)
@@ -19,7 +19,7 @@ class EndService
     "Winner is #{winbet.player.displayName}, answer : #{g.winNum}, #{winbet.player.displayName} earns #{g.bets.sum(:amount)}"
   end
 
-  def no_bet
+  def no_bet(g)
     g.winner = nil
     g.status = true
     g.save!
