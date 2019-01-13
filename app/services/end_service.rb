@@ -11,12 +11,12 @@ class EndService
     return no_bet(g) if g.bets.blank?
 
     winbet = g.bets.min_by { |b| (g.winNum - b.num_guess).abs }
-    winbet.player.balance += (winbet.amount *= g.bets.count)
+    winbet.player.balance += (winbet.amount * g.bets.count)
     winbet.player.save!
     g.winner = winbet.player
     g.status = true
     g.save!
-    "Winner is #{winbet.player.displayName}, answer : #{g.winNum}, #{winbet.player.displayName} earns #{g.bets.sum(:amount)}"
+    "Winner is #{winbet.player.displayName}, answer : #{g.winNum}, #{winbet.player.displayName} earns #{winbet.amount * g.bets.count}"
   end
 
   def no_bet(g)
