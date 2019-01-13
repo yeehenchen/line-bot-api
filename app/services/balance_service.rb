@@ -4,6 +4,6 @@ class BalanceService
   end
 
   def balance
-    "#{@user.displayName} : #{@user.balance}元"
+    "#{@user.displayName} : 餘額#{@user.balance}元"
   end
 end

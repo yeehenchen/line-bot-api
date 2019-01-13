@@ -7,8 +7,6 @@ class BenjaminController < ApplicationController
   protect_from_forgery with: :null_session
 
   def webhook
-    userid = params['events'][0]['source']['userId']
-    @user = user_profile(userid) ? Player.find_or_create_by(user_profile(userid)) : nil
     case command_identify(received_text)
     when nil
       # reply text
@@ -17,7 +15,8 @@ class BenjaminController < ApplicationController
       # reply message
       text_to_line(reply_text)
     when String
-      # do sth
+      userid = params['events'][0]['source']['userId']
+      @user = user_profile(userid) ? Player.find_or_create_by(user_profile(userid)) : nil
       return text_to_line('加好友才能使用功能哦！快加ㄅ') unless @user
 
       room = params['events'][0]['source']['roomId']
@@ -29,7 +28,7 @@ class BenjaminController < ApplicationController
         return text_to_line('You cannot play alone, LOSER! Go find some friends la.') if room.nil?
 
         s = StartService.new(@user, room)
-        s.sth
+        text_to_line(s.start)
       when '!end'
         s = EndService.new(@user, room, command_params(received_text))
         s.sth
@@ -83,7 +82,6 @@ class BenjaminController < ApplicationController
 
   def line
     @line ||= Line::Bot::Client.new { |config|
-      p "config #{config}"
       config.channel_secret = ENV['LINE_SECRET']
       config.channel_token = ENV['LINE_TOKEN']
     }
