@@ -25,7 +25,7 @@ class BenjaminController < ApplicationController
       case command_identify(received_text)
       when '!bet'
         s = BetService.new(@user, room, command_params(received_text))
-        s.bet
+        text_to_line(s.bet)
       when '!start'
         s = StartService.new(@user, room)
         text_to_line(s.start)

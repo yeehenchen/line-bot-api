@@ -6,7 +6,7 @@ class BetService
     @num_guess = params[1].to_i
   end
 
-  def bets
+  def bet
     # check if game exists
     game = Game.where(roomId: @room).select { |g| g.status == false }
     return 'You haven\'t created a game, !start a game first!' if game.nil?
