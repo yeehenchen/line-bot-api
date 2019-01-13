@@ -5,10 +5,9 @@ class StartService
   end
 
   def start
-    return 'Already started a game, !end it first to start another one' unless Game.where(roomId: @room).select { |r| r.status == false }.blank?
+    return 'Already started a game, !end it first to start another one' unless Game.where(roomId: @room).select { |g| g.status == false }.blank?
 
     Game.create(roomId: @room, winNum: rand(100))
     'Game started!!! See who is closer to the answer.'
   end
 end
-

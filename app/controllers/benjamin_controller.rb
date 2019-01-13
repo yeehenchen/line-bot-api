@@ -20,18 +20,18 @@ class BenjaminController < ApplicationController
       return text_to_line('加好友才能使用功能哦！快加ㄅ') unless @user
 
       room = params['events'][0]['source']['roomId']
+      return text_to_line('You cannot play alone, LOSER! Go find some friends la.') if room.nil?
+
       case command_identify(received_text)
       when '!bet'
         s = BetService.new(@user, room, command_params(received_text))
         s.bet
       when '!start'
-        return text_to_line('You cannot play alone, LOSER! Go find some friends la.') if room.nil?
-
         s = StartService.new(@user, room)
         text_to_line(s.start)
       when '!end'
-        s = EndService.new(@user, room, command_params(received_text))
-        s.sth
+        s = EndService.new(@user, room)
+        text_to_line(s.start)
       when '!balance'
         s = BalanceService.new(@user)
         text_to_line(s.balance)

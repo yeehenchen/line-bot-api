@@ -8,15 +8,21 @@ class BetService
 
   def bets
     # check if game exists
-    game = Game.where(roomId == @room).select { |g| g.status == false }
+    game = Game.where(roomId: @room).select { |g| g.status == false }
+    return 'You haven\'t created a game, !start a game first!' if game.nil?
+
     # create a bet
     bet = Bet.new(amount: @amount, num_guess: @num_guess, game_id: game.id, player_id: @user.id)
-    # check if balance is enough -> return err1
-    # then check if bet is valid -> return active record err message
+
     if @user.balance >= @amount
-      # if all good then recalc the balance and place bet
-      @user.balance -= @amount
-      @user.save!
+      if bet.save!
+        @user.balance -= @amount
+        "Successfully placed bet for #{user.displayName}, good luck!"
+      else
+        bet.errors.full_messages.sum
+      end
+    else
+      "#{user.displayName}'s balance is not enough"
     end
   end
 end
