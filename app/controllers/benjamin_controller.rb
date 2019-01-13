@@ -38,6 +38,8 @@ class BenjaminController < ApplicationController
       when '!rank'
         s = RankService.new(@user, room, command_params(received_text))
         s.sth
+      when '!help'
+        text_to_line('Type !start to start a game, !end to end a game & get the winner, !bet to place a bet (betting format !bet amount number e.q. !bet 1000 35), !balance to know how much money in your account!')
       end
     end
     head :ok
