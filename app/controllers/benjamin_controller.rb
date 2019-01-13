@@ -31,7 +31,7 @@ class BenjaminController < ApplicationController
         text_to_line(s.start)
       when '!end'
         s = EndService.new(@user, room)
-        text_to_line(s.start)
+        text_to_line(s.end)
       when '!balance'
         s = BalanceService.new(@user)
         text_to_line(s.balance)
