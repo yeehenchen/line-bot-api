@@ -15,7 +15,7 @@ class BetService
     bet = Bet.new(amount: @amount, num_guess: @num_guess, game_id: game.id, player_id: @user.id)
 
     if @user.balance >= @amount
-      if bet.save!
+      if bet.save
         @user.balance -= @amount
         "Successfully placed bet for #{user.displayName}, good luck!"
       else
