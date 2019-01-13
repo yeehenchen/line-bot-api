@@ -1,7 +1,7 @@
 class Game < ApplicationRecord
   has_many :bets
 
-  attribute :winNum, :integer, default: rand(100)
+  attribute :winNum, :integer
   attribute :status, :boolean, default: false
 
   validates :roomId, presence: true
