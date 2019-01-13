@@ -9,10 +9,6 @@ class RankService
 
     games = Game.where(roomId: @room).select { |r| r.status == true }
     players = get_players_in_room(@room)
-
-    games.each do |g| {
-      g.winner
-    }
   end
 
   def get_players_in_room(room)
