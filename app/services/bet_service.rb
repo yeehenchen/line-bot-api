@@ -17,6 +17,7 @@ class BetService
     if @user.balance >= @amount
       if bet.save
         @user.balance -= @amount
+        @user.save
         "Successfully placed bet for #{@user.displayName}, good luck!"
       else
         bet.errors.full_messages.sum
