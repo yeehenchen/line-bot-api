@@ -46,10 +46,10 @@ class BenjaminController < ApplicationController
       when '!help'
         text_to_line('
           輸入!start來開始遊戲
-      !end 結束遊戲並宣布贏家
-      !bet 來下注（下注格式為 !bet 數量 號碼 e.q. !bet 1000 35）
-      !balance 來查詢帳戶餘額
-      !rule 遊戲規則
+          !end 結束遊戲並宣布贏家
+          !bet 來下注（下注格式為 !bet 數量 號碼 e.q. !bet 1000 35）
+          !balance 來查詢帳戶餘額
+          !rule 遊戲規則
           ')
       end
     end
