@@ -45,13 +45,7 @@ class BenjaminController < ApplicationController
           這是一個充滿心機的遊戲！每位玩家每次可以花錢賭一個數字，同一個數字無法下注兩次，最終答案是所有數字的平均值(所有下注數字總和 / 總下注次數)，最接近這位數字的玩家會獲得該注賭金Ｘ總下注次數的獎金！若結果相同則以先下注的玩家為贏家！
           ')
       when '!help'
-        text_to_line('
-          輸入!start來開始遊戲
-          !end 結束遊戲並宣布贏家
-          !bet 來下注（下注格式為 !bet 數量 號碼 e.q. !bet 1000 35）
-          !balance 來查詢帳戶餘額
-          !rule 遊戲規則
-          ')
+        text_to_line("!start來開始遊戲\n!end 結束遊戲並宣布贏家\n!bet 來下注（下注格式為 !bet 數量 號碼 e.q. !bet 1000 35)\n!balance 來查詢帳戶餘額\n!rule 遊戲規則\n!rank 獲勝次數排行榜")
       end
     end
     head :ok
