@@ -21,6 +21,7 @@ class BenjaminController < ApplicationController
       return text_to_line('加好友才能使用功能哦！快加ㄅ') unless @user
 
       des = params['events'][0]['source']['roomId'] || params['events'][0]['source']['groupId']
+      type = params['events'][0]['source']['type']
       return text_to_line('不能自己玩啦！魯蛇逆') if des.nil?
 
       case command_identify(received_text)
@@ -37,8 +38,8 @@ class BenjaminController < ApplicationController
         s = BalanceService.new(@user)
         text_to_line(s.balance)
       when '!rank'
-        s = RankService.new(@user, des)
-        s.sth
+        s = RankService.new(@user, des, type)
+        s.rank
       when '!rule'
         text_to_line('
           這是一個充滿心機的遊戲！每位玩家每次可以花錢賭一個數字，同一個數字無法下注兩次，最終答案是所有數字的平均值(所有下注數字總和 / 總下注次數)，最接近這位數字的玩家會獲得該注賭金Ｘ總下注次數的獎金！若結果相同則以先下注的玩家為贏家！
