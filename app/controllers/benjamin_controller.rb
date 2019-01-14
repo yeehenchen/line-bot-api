@@ -39,7 +39,7 @@ class BenjaminController < ApplicationController
         text_to_line(s.balance)
       when '!rank'
         s = RankService.new(@user, des, type)
-        s.rank
+        text_to_line(s.rank)
       when '!rule'
         text_to_line('
           這是一個充滿心機的遊戲！每位玩家每次可以花錢賭一個數字，同一個數字無法下注兩次，最終答案是所有數字的平均值(所有下注數字總和 / 總下注次數)，最接近這位數字的玩家會獲得該注賭金Ｘ總下注次數的獎金！若結果相同則以先下注的玩家為贏家！

@@ -7,13 +7,14 @@ class RankService
 
   def rank
     return '你們還沒有開始/完成任何一場遊戲ㄛ，用!start開始吧！' if Game.where(roomId: @des).select { |r| r.status == true }.blank?
-
-    games = Game.where(roomId: @des).select { |r| r.status == true }
+    result = '----獲勝次數排行榜----'
     rank = Hash.new(0)
-    games.each do |g|
-      rank[g.winner] += 1
+
+    Game.where(roomId: @des).select { |r| r.status == true }.each do |g|
+      rank[g.winner.displayName] += 1
     end
-    p rank
+    rank.sort_by { |_k, v| -v }.each { |r| result += "\n#{r.key} : #{r.value}次" }
+    result
   end
 end
 # Not available if register
