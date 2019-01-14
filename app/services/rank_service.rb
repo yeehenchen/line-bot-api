@@ -13,7 +13,7 @@ class RankService
     Game.where(roomId: @des).select { |r| r.status == true }.each do |g|
       rank[g.winner] += 1
     end
-    rank.sort_by { |_k, v| -v }.each { |r| result += "\n#{r.key} : #{r.value}次" }
+    rank.sort_by { |_k, v| -v }.each { |k, v| result += "\n#{k} : #{v}次" }
     result
   end
 end
