@@ -13,10 +13,11 @@ class EndService
     winbet = g.bets.min_by { |b| (g.winNum - b.num_guess).abs }
     winbet.player.balance += (winbet.amount * g.bets.count)
     winbet.player.save!
-    g.winner = winbet.player
+    p "Winner : #{winbet.player.displayName}"
+    g.winner = winbet.player.displayName
     g.status = true
     g.save!
-    "獲勝的是...#{winbet.player.displayName}! 答案: #{g.winNum}, #{winbet.player.displayName} 賺了 #{winbet.amount * g.bets.count}！"
+    "獲勝的是...#{g.displayName}! 答案: #{g.winNum}, #{g.displayName} 賺了 #{winbet.amount * g.bets.count}！"
   end
 
   def no_bet(g)
