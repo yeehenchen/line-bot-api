@@ -10,6 +10,8 @@ class EndService
     g = Game.where(roomId: @room).select { |r| r.status == false }.first
     return no_bet(g) if g.bets.blank?
 
+    g.winNum = g.bets.average(:num_guess)
+
     winbet = g.bets.min_by { |b| (g.winNum - b.num_guess).abs }
     winbet.player.balance += (winbet.amount * g.bets.count)
     winbet.player.save!

@@ -18,8 +18,6 @@ class BetService
       if bet.save
         @user.balance -= @amount
         @user.save
-        game.winNum = (game.winNum * (game.bets.count - 1) + @num_guess) / game.bets.count
-        game.save
         "#{@user.displayName}下注成功！"
       else
         bet.errors.full_messages.sum
