@@ -11,7 +11,7 @@ class RankService
     rank = Hash.new(0)
 
     Game.where(roomId: @des).select { |r| r.status == true }.each do |g|
-      rank[g.winner] += 1 unless g.winner.blank
+      rank[g.winner] += 1 unless g.winner.blank?
     end
     rank.sort_by { |_k, v| -v }.each { |k, v| result += "\n#{k} : #{v}次" }
     result
