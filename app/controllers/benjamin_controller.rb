@@ -45,7 +45,8 @@ class BenjaminController < ApplicationController
           這是一個充滿心機的遊戲！每位玩家每次可以花錢賭一個數字，同一個數字無法下注兩次，最終答案是所有數字的平均值(所有下注數字總和 / 總下注次數)，最接近這位數字的玩家會獲得該注賭金Ｘ總下注次數的獎金！若結果相同則以先下注的玩家為贏家！
           ')
       when '!help'
-        text_to_line("!start來開始遊戲\n!end 結束遊戲並宣布贏家\n!bet 來下注（下注格式為 !bet 數量 號碼 e.q. !bet 1000 35)\n!balance 來查詢帳戶餘額\n!rule 遊戲規則\n!rank 獲勝次數排行榜")
+        # text_to_line("!start來開始遊戲\n!end 結束遊戲並宣布贏家\n!bet 來下注（下注格式為 !bet 數量 號碼 e.q. !bet 1000 35)\n!balance 來查詢帳戶餘額\n!rule 遊戲規則\n!rank 獲勝次數排行榜")
+        help_button
       end
     end
     head :ok
@@ -108,4 +109,46 @@ class BenjaminController < ApplicationController
     # call the reply function
     line.reply_message(reply_token, message)
   end
+
+  def help_button
+    # get reply token
+    reply_token = params['events'][0]['replyToken']
+
+    # setup replying message
+    message = {
+      "type": "template",
+      "altText": "this is a buttons template",
+      "template": {
+        "type": "buttons",
+        "actions": [
+          {
+            "type": "message",
+            "label": "開始遊戲",
+            "text": "!start"
+          },
+          {
+            "type": "message",
+            "label": "結束遊戲並結算贏家",
+            "text": "!end"
+          },
+          {
+            "type": "message",
+            "label": "查詢餘額",
+            "text": "!balance"
+          },
+          {
+            "type": "message",
+            "label": "查詢排行榜",
+            "text": "!rank"
+          }
+        ],
+        "text": "功能列表"
+      }
+    }
+
+    # call the reply function
+    line.reply_message(reply_token, message)
+  end
+
+
 end
