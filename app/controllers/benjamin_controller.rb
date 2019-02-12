@@ -117,7 +117,7 @@ class BenjaminController < ApplicationController
     # setup replying message
     message = {
       "type": "template",
-      "altText": "this is a buttons template",
+      "altText": "功能列表",
       "template": {
         "type": "buttons",
         "actions": [
