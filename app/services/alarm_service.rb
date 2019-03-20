@@ -3,8 +3,8 @@ require 'line/bot'
 class AlarmService
   def client
     @client ||= Line::Bot::Client.new do |config|
-      config.channel_secret = ENV['LINE_SECRET']
-      config.channel_token = ENV['LINE_TOKEN']
+      config.channel_secret = ENV['LINE_SECRET2']
+      config.channel_token = ENV['LINE_TOKEN2']
     end
   end
 
