@@ -85,7 +85,7 @@ class BenjaminController < ApplicationController
       reply = Link.where("word LIKE '%#{received_text}%'").first
       "你是說迪卡儂的#{reply.word}嗎？ 快去吧！#{reply.link}"
     elsif received_text.strip.length < 4
-      received_text
+      received_text.strip
     end
   end
 
