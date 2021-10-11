@@ -66,9 +66,9 @@ class BenjaminController < ApplicationController
     profile = JSON.parse(profile)
     
     {
-      userId: profile.userId,
-      displayName: profile.displayName,
-      pictureUrl: profile.pictureUrl,
+      userId: profile['userId'],
+      displayName: profile['displayName'],
+      pictureUrl: profile['pictureUrl'],
     }
   end
 
