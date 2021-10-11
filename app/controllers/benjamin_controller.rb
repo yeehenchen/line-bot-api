@@ -64,8 +64,12 @@ class BenjaminController < ApplicationController
       return nil
     end
     profile = JSON.parse(profile)
-    profile.delete("statusMessage") if profile["statusMessage"]
-    profile
+    
+    {
+      userId: profile.userId,
+      displayName: profile.displayName,
+      pictureUrl: profile.pictureUrl,
+    }
   end
 
   def received_text
